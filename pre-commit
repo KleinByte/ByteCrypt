@@ -1,0 +1,38 @@
+#!/bin/sh
+
+
+REPO_DIR="$(git rev-parse --show-toplevel)"
+PYTHON_SCRIPT="${REPO_DIR}/ByteCrypt/ByteCrypt.py"
+
+# Check if encrypted directory exists and unencrypted directory does not
+if [ ! -d "./Quill" ] && [ -f "./_Quill.7z" ]
+then
+    # Add the encrypted directory to the staging area
+    git add .
+
+    # Unstage the original (unencrypted) directory if it exists in staging
+    git ls-files --error-unmatch ./Quill > /dev/null 2>&1
+    if [ $? -eq 0 ]
+    then
+        git rm -r --cached ./Quill
+    fi
+else
+    echo "Quill not encrypted, encrypting now..."
+    # Run the Python script to encrypt the directory
+    python "${PYTHON_SCRIPT}"
+    if [ ! -d "./Quill" ] && [ -f "./_Quill.7z" ]
+    then
+        # Add the encrypted directory to the staging area
+        git add .
+
+        # Unstage the original (unencrypted) directory if it exists in staging
+        git ls-files --error-unmatch ./Quill > /dev/null 2>&1
+        if [ $? -eq 0 ]
+        then
+            git rm -r --cached ./Quill
+        fi
+    fi
+fi
+
+# Proceed with the commit
+exit 0

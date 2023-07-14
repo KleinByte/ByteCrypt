@@ -1,0 +1,5 @@
+{
+    "unencrypted_directory": "../Unencrypted-Folder",
+    "encrypted_directory": "../Unencrypted-Folder.7z",
+    "backup_dir": "../backup_dir"
+  }
