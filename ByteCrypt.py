@@ -201,9 +201,9 @@ class ByteCrypt:
         else:
             print(f"Archive {self.encrypted_directory} does not exist.")
             await self._create_encrypted_7z(self.password)
-            current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M.%S")
-            archive_name_with_datetime = f"{ self.encrypted_directoryStr}_{current_datetime}"
-            dest = os.path.join(self.root_dir, self.backup_dir)
+            current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            archive_name_with_datetime = f"{self.encrypted_directoryStr}_{current_datetime}.bcz"
+            dest = os.path.join(self.root_dir, self.backup_dir)+"\\"
             shutil.copy(self.encrypted_directory,  os.path.join(dest+archive_name_with_datetime))
             self._set_permissions_recursive(self.unencrypted_directory)
 
