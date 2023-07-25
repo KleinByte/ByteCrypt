@@ -80,10 +80,11 @@ class ByteCrypt:
             return None
 
     def _get_7z_path(self):
+        base_dir = os.path.dirname(os.path.realpath(__file__))
         if platform.system() == 'Windows':
-            return './7z/windows/7z.exe'
+            return os.path.join(base_dir, './7z/windows/7z.exe')
         elif platform.system() == 'Linux':
-            return './7z/linux/7zz'
+            return os.path.join(base_dir, './7z/linux/7zz')
         else:
             raise Exception('Unsupported platform')
 
